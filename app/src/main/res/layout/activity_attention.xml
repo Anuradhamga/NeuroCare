@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/attentionMain"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFF9F6"
+    android:padding="22dp">
+
+    <!-- Header -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NEUROCARE"
+        android:textColor="#FF795B"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.15" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:text="Attention Training 🎯"
+        android:textColor="#292321"
+        android:textSize="27sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:text="Focus on the target and improve your attention."
+        android:textColor="#89817D"
+        android:textSize="13sp" />
+
+    <!-- Difficulty Information Card -->
+
+    <LinearLayout
+        android:id="@+id/attentionDifficultyCard"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/bg_white_card"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CURRENT LEVEL"
+                android:textColor="#89817D"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtAttentionDifficulty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Not Selected"
+                android:textColor="#FF795B"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtAttentionLevelInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5 Rounds • 4 Symbols"
+            android:textColor="#89817D"
+            android:textSize="11sp" />
+
+    </LinearLayout>
+
+    <!-- Score Card -->
+
+    <LinearLayout
+        android:id="@+id/attentionScoreCard"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/bg_white_card"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="YOUR SCORE"
+            android:textColor="#89817D"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtAttentionScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="0"
+            android:textColor="#FF795B"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <!-- Target -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/bg_gradient"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FIND THIS SYMBOL"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.1" />
+
+        <TextView
+            android:id="@+id/txtTargetSymbol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="⭐"
+            android:textSize="48sp" />
+
+    </LinearLayout>
+
+    <!-- Instruction -->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:gravity="center"
+        android:text="Tap the matching symbol below"
+        android:textColor="#292321"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txtAttentionRound"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:gravity="center"
+        android:text="Ready to begin?"
+        android:textColor="#89817D"
+        android:textSize="13sp" />
+
+    <!-- Symbol Options -->
+
+    <GridLayout
+        android:id="@+id/attentionGrid"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="12dp"
+        android:columnCount="3"
+        android:rowCount="3"
+        android:alignmentMode="alignMargins"
+        android:useDefaultMargins="true" />
+
+    <!-- Buttons -->
+
+    <Button
+        android:id="@+id/btnStartAttention"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_orange_button"
+        android:text="Start Training"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnChangeAttentionDifficulty"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/bg_white_card"
+        android:text="⚙ Change Difficulty"
+        android:textAllCaps="false"
+        android:textColor="#FF795B"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+</LinearLayout>

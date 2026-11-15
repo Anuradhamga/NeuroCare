@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="22dp"
+    android:background="@drawable/bg_white_card">
+
+    <!-- Header -->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🧠 Choose Your Challenge"
+        android:textColor="#292321"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        android:gravity="center" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Select a difficulty level to start training."
+        android:textColor="#89817D"
+        android:textSize="13sp"
+        android:gravity="center" />
+
+    <!-- Easy -->
+
+    <LinearLayout
+        android:id="@+id/levelEasy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        android:background="#E9F8EF"
+        android:clickable="true"
+        android:focusable="true">
+
+        <TextView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:text="🌱"
+            android:textSize="27sp"
+            android:gravity="center"
+            android:background="#D0F0DB" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="14dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Easy"
+                android:textColor="#267A48"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Beginner • 4 Pairs • 8 Cards"
+                android:textColor="#568267"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="›"
+            android:textColor="#267A48"
+            android:textSize="30sp" />
+
+    </LinearLayout>
+
+    <!-- Medium -->
+
+    <LinearLayout
+        android:id="@+id/levelMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        android:background="#FFF2E5"
+        android:clickable="true"
+        android:focusable="true">
+
+        <TextView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:text="🔥"
+            android:textSize="27sp"
+            android:gravity="center"
+            android:background="#FFE1C5" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="14dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Medium"
+                android:textColor="#C76A24"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Intermediate • 8 Pairs • 16 Cards"
+                android:textColor="#A87954"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="›"
+            android:textColor="#C76A24"
+            android:textSize="30sp" />
+
+    </LinearLayout>
+
+    <!-- Hard -->
+
+    <LinearLayout
+        android:id="@+id/levelHard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        android:background="#FCE9E9"
+        android:clickable="true"
+        android:focusable="true">
+
+        <TextView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:text="⚡"
+            android:textSize="27sp"
+            android:gravity="center"
+            android:background="#F8D5D5" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="14dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hard"
+                android:textColor="#C43D3D"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Expert • 12 Pairs • 24 Cards"
+                android:textColor="#A66B6B"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="›"
+            android:textColor="#C43D3D"
+            android:textSize="30sp" />
+
+    </LinearLayout>
+
+    <!-- Footer -->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Challenge yourself and improve your memory!"
+        android:textColor="#89817D"
+        android:textSize="12sp"
+        android:gravity="center" />
+
+</LinearLayout>

@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/progressRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFF9F6">
+
+    <ScrollView
+        android:id="@+id/progressMain"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:background="#FFF9F6"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/progressContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="22dp">
+
+            <!-- HEADER -->
+
+            <TextView
+                android:id="@+id/progressHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NEUROCARE"
+                android:textColor="#FF795B"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.15"
+                android:layout_marginBottom="12dp"/>
+
+            <TextView
+                android:id="@+id/progressTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Your Progress 📊"
+                android:textColor="#29243B"
+                android:textSize="27sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/progressSubtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Track your cognitive training journey."
+                android:textColor="#96919F"
+                android:textSize="13sp"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="25dp"/>
+
+            <!-- OVERALL PROGRESS CARD -->
+
+            <LinearLayout
+                android:id="@+id/overallProgressCard"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:orientation="vertical"
+                android:gravity="center_vertical"
+                android:padding="23dp"
+                android:background="@drawable/bg_daily_goal"
+                android:elevation="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="✦  YOUR TRAINING JOURNEY"
+                    android:textColor="#FFE5D9"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.08"/>
+
+                <TextView
+                    android:id="@+id/txtTotalSessions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="#FFFFFF"
+                    android:textSize="46sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Completed Sessions"
+                    android:textColor="#FFF0E9"
+                    android:textSize="13sp"
+                    android:layout_marginTop="2dp"/>
+
+            </LinearLayout>
+
+            <!-- STATISTICS -->
+
+            <TextView
+                android:id="@+id/statisticsTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Your Statistics"
+                android:textColor="#29243B"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="15dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!-- TOTAL SCORE -->
+
+                <LinearLayout
+                    android:id="@+id/scoreCard"
+                    android:layout_width="0dp"
+                    android:layout_height="140dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="14dp"
+                    android:background="@drawable/bg_chart_card"
+                    android:elevation="3dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🏆"
+                        android:textSize="28sp"/>
+
+                    <TextView
+                        android:id="@+id/txtTotalScore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="#FF795B"
+                        android:textSize="26sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="7dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Total Score"
+                        android:textColor="#96919F"
+                        android:textSize="12sp"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="13dp"
+                    android:layout_height="1dp"/>
+
+                <!-- REACTION TIME -->
+
+                <LinearLayout
+                    android:id="@+id/reactionCard"
+                    android:layout_width="0dp"
+                    android:layout_height="140dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="14dp"
+                    android:background="@drawable/bg_chart_card"
+                    android:elevation="3dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="⚡"
+                        android:textSize="28sp"/>
+
+                    <TextView
+                        android:id="@+id/txtAverageReaction"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="---"
+                        android:textColor="#FF795B"
+                        android:textSize="26sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="7dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Avg. Reaction"
+                        android:textColor="#96919F"
+                        android:textSize="12sp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- PERFORMANCE SECTION -->
+
+            <TextView
+                android:id="@+id/performanceTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Game Performance"
+                android:textColor="#29243B"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginTop="30dp"/>
+
+            <TextView
+                android:id="@+id/performanceSubtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Your activity across different brain games."
+                android:textColor="#96919F"
+                android:textSize="12sp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- PERFORMANCE CARD -->
+
+            <LinearLayout
+                android:id="@+id/performanceCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:background="@drawable/bg_chart_card"
+                android:elevation="3dp">
+
+                <!-- MEMORY -->
+
+                <TextView
+                    android:id="@+id/memoryProgressTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="🧠  Memory Match"
+                    android:textColor="#29243B"
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/txtMemoryProgress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0 sessions completed"
+                    android:textColor="#96919F"
+                    android:textSize="12sp"
+                    android:layout_marginTop="6dp"/>
+
+                <ProgressBar
+                    android:id="@+id/progressMemoryBar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="9dp"
+                    android:max="100"
+                    android:progress="0"
+                    android:progressTint="#FF795B"
+                    android:progressBackgroundTint="#FCE8DF"
+                    android:layout_marginTop="12dp"/>
+
+                <!-- ATTENTION -->
+
+                <TextView
+                    android:id="@+id/attentionProgressTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="🎯  Attention Training"
+                    android:textColor="#29243B"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="25dp"/>
+
+                <TextView
+                    android:id="@+id/txtAttentionProgress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0 sessions completed"
+                    android:textColor="#96919F"
+                    android:textSize="12sp"
+                    android:layout_marginTop="6dp"/>
+
+                <ProgressBar
+                    android:id="@+id/progressAttentionBar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="9dp"
+                    android:max="100"
+                    android:progress="0"
+                    android:progressTint="#FF795B"
+                    android:progressBackgroundTint="#FCE8DF"
+                    android:layout_marginTop="12dp"/>
+
+                <!-- REACTION -->
+
+                <TextView
+                    android:id="@+id/reactionProgressTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="⚡  Reaction Time"
+                    android:textColor="#29243B"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="25dp"/>
+
+                <TextView
+                    android:id="@+id/txtReactionProgress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0 sessions completed"
+                    android:textColor="#96919F"
+                    android:textSize="12sp"
+                    android:layout_marginTop="6dp"/>
+
+                <ProgressBar
+                    android:id="@+id/progressReactionBar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="9dp"
+                    android:max="100"
+                    android:progress="0"
+                    android:progressTint="#FF795B"
+                    android:progressBackgroundTint="#FCE8DF"
+                    android:layout_marginTop="12dp"/>
+
+                <!-- ODD ONE OUT -->
+
+                <TextView
+                    android:id="@+id/oddOneOutProgressTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="🔍  Odd One Out"
+                    android:textColor="#29243B"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="25dp"/>
+
+                <TextView
+                    android:id="@+id/txtOddOneOutProgress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0 sessions completed"
+                    android:textColor="#96919F"
+                    android:textSize="12sp"
+                    android:layout_marginTop="6dp"/>
+
+                <ProgressBar
+                    android:id="@+id/progressOddOneOutBar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="9dp"
+                    android:max="100"
+                    android:progress="0"
+                    android:progressTint="#FF795B"
+                    android:progressBackgroundTint="#FCE8DF"
+                    android:layout_marginTop="12dp"/>
+
+            </LinearLayout>
+
+            <!-- EXPORT PDF -->
+
+            <Button
+                android:id="@+id/btnExportPDF"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:text="📄  Export Progress as PDF"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:background="@drawable/bg_daily_goal"
+                android:backgroundTint="@null"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="15dp"
+                android:elevation="3dp"/>
+
+            <!-- FOOTER -->
+
+            <TextView
+                android:id="@+id/progressFooter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Keep practicing every day! 💪"
+                android:textColor="#FF795B"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:padding="15dp"
+                android:layout_marginBottom="12dp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!-- BOTTOM NAVIGATION -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="76dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_bottom_navigation"
+        android:padding="6dp"
+        android:elevation="8dp">
+
+        <!-- HOME -->
+
+        <LinearLayout
+            android:id="@+id/navHome"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="⌂"
+                android:textSize="22sp"
+                android:textColor="#96919F"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Home"
+                android:textSize="10sp"
+                android:textColor="#96919F"/>
+
+        </LinearLayout>
+
+        <!-- GAMES -->
+
+        <LinearLayout
+            android:id="@+id/navGames"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🎮"
+                android:textSize="19sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Games"
+                android:textSize="10sp"
+                android:textColor="#96919F"/>
+
+        </LinearLayout>
+
+        <!-- PROGRESS SELECTED -->
+
+        <LinearLayout
+            android:id="@+id/navProgress"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/bg_nav_selected">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="▥"
+                android:textSize="23sp"
+                android:textColor="#FF795B"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Progress"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:textColor="#FF795B"/>
+
+        </LinearLayout>
+
+        <!-- HISTORY -->
+
+        <LinearLayout
+            android:id="@+id/navHistory"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="◷"
+                android:textSize="23sp"
+                android:textColor="#96919F"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="History"
+                android:textSize="10sp"
+                android:textColor="#96919F"/>
+
+        </LinearLayout>
+
+        <!-- PROFILE -->
+
+        <LinearLayout
+            android:id="@+id/navProfile"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="●"
+                android:textSize="19sp"
+                android:textColor="#96919F"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Profile"
+                android:textSize="10sp"
+                android:textColor="#96919F"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
