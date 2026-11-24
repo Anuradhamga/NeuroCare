@@ -2,61 +2,54 @@ package com.example.neurocare;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    // Theme Layouts
-    private LinearLayout themeLight;
-    private LinearLayout themeDark;
-    private LinearLayout themeBlue;
-    private LinearLayout themePurple;
+    // Profile
+    private TextView txtProfileName, txtProfileEmail, txtProfileInitials;
+    private ImageView imgProfile;
 
-    // Theme Check Marks
-    private TextView checkLight;
-    private TextView checkDark;
-    private TextView checkBlue;
-    private TextView checkPurple;
+    private EditText edtProfileName, edtProfileEmail, edtProfileAge;
+    private Spinner spinnerGender;
 
-    // Profile Views
-    private TextView txtProfileName;
-    private TextView txtProfileEmail;
-    private TextView txtProfileInitials;
+    private Button btnChoosePhoto, btnSaveProfile;
 
-    // Accordion Headers
-    private LinearLayout headerPersonal;
-    private LinearLayout headerAppearance;
-    private LinearLayout headerAbout;
+    // Theme
+    private LinearLayout themeLight, themeDark, themeBlue, themePurple;
+    private TextView checkLight, checkDark, checkBlue, checkPurple;
 
-    // Accordion Contents
-    private LinearLayout contentPersonal;
-    private LinearLayout contentAppearance;
-    private LinearLayout contentAbout;
+    // Accordion
+    private LinearLayout headerPersonal, headerAppearance, headerAbout;
+    private LinearLayout contentPersonal, contentAppearance, contentAbout;
 
-    // Accordion Arrows
-    private TextView arrowPersonal;
-    private TextView arrowAppearance;
-    private TextView arrowAbout;
+    private TextView arrowPersonal, arrowAppearance, arrowAbout;
 
     // Navigation
-    private TextView navHome;
-    private TextView navGames;
-    private TextView navProgress;
-    private TextView navHistory;
-    private TextView navProfile;
+    private TextView navHome, navGames, navProgress, navHistory, navProfile;
 
     // Preferences
     private SharedPreferences preferences;
     private SharedPreferences userPreferences;
 
-    private String selectedTheme;
+    private String selectedTheme = "light";
+    private String selectedImageUri = "";
 
+    private ActivityResultLauncher<Intent> imagePicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +57,6 @@ public class SettingsActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_settings);
 
-        // Preferences
         preferences = getSharedPreferences(
                 "NeuroCareSettings",
                 MODE_PRIVATE
@@ -77,7 +69,11 @@ public class SettingsActivity extends AppCompatActivity {
 
         initializeViews();
 
+        setupImagePicker();
+
         loadUserProfile();
+
+        setupProfileListeners();
 
         setupAccordion();
 
@@ -92,19 +88,27 @@ public class SettingsActivity extends AppCompatActivity {
         setupBottomNavigation();
     }
 
-
-    // ==========================================
+    // =====================================
     // INITIALIZE VIEWS
-    // ==========================================
+    // =====================================
 
     private void initializeViews() {
 
-        // Profile
         txtProfileName = findViewById(R.id.txtProfileName);
         txtProfileEmail = findViewById(R.id.txtProfileEmail);
         txtProfileInitials = findViewById(R.id.txtProfileInitials);
 
-        // Themes
+        imgProfile = findViewById(R.id.imgProfile);
+
+        edtProfileName = findViewById(R.id.edtProfileName);
+        edtProfileEmail = findViewById(R.id.edtProfileEmail);
+        edtProfileAge = findViewById(R.id.edtProfileAge);
+
+        spinnerGender = findViewById(R.id.spinnerGender);
+
+        btnChoosePhoto = findViewById(R.id.btnChoosePhoto);
+        btnSaveProfile = findViewById(R.id.btnSaveProfile);
+
         themeLight = findViewById(R.id.themeLight);
         themeDark = findViewById(R.id.themeDark);
         themeBlue = findViewById(R.id.themeBlue);
@@ -115,56 +119,323 @@ public class SettingsActivity extends AppCompatActivity {
         checkBlue = findViewById(R.id.checkBlue);
         checkPurple = findViewById(R.id.checkPurple);
 
-        // Accordion Headers
         headerPersonal = findViewById(R.id.headerPersonal);
         headerAppearance = findViewById(R.id.headerAppearance);
         headerAbout = findViewById(R.id.headerAbout);
 
-        // Accordion Contents
         contentPersonal = findViewById(R.id.contentPersonal);
         contentAppearance = findViewById(R.id.contentAppearance);
         contentAbout = findViewById(R.id.contentAbout);
 
-        // Arrows
         arrowPersonal = findViewById(R.id.arrowPersonal);
         arrowAppearance = findViewById(R.id.arrowAppearance);
         arrowAbout = findViewById(R.id.arrowAbout);
 
-        // Bottom Navigation
         navHome = findViewById(R.id.navHome);
         navGames = findViewById(R.id.navGames);
         navProgress = findViewById(R.id.navProgress);
         navHistory = findViewById(R.id.navHistory);
         navProfile = findViewById(R.id.navProfile);
+
+        String[] genders = {
+                "Select Gender",
+                "Male",
+                "Female",
+                "Other",
+                "Prefer not to say"
+        };
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_item,
+                genders
+        );
+
+        adapter.setDropDownViewResource(
+                android.R.layout.simple_spinner_dropdown_item
+        );
+
+        spinnerGender.setAdapter(adapter);
     }
 
+    // =====================================
+    // IMAGE PICKER
+    // =====================================
 
-    // ==========================================
+    private void setupImagePicker() {
+
+        imagePicker = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+
+                    if (result.getResultCode() == RESULT_OK
+                            && result.getData() != null) {
+
+                        Intent data = result.getData();
+
+                        Uri imageUri = data.getData();
+
+                        if (imageUri != null) {
+
+                            try {
+
+                                int flags = data.getFlags()
+                                        & Intent.FLAG_GRANT_READ_URI_PERMISSION;
+
+                                getContentResolver().takePersistableUriPermission(
+                                        imageUri,
+                                        flags
+                                );
+
+                                selectedImageUri = imageUri.toString();
+
+                                imgProfile.setImageURI(imageUri);
+
+                                imgProfile.setVisibility(View.VISIBLE);
+
+                                txtProfileInitials.setVisibility(View.GONE);
+
+                            } catch (Exception e) {
+
+                                try {
+
+                                    selectedImageUri = imageUri.toString();
+
+                                    imgProfile.setImageURI(imageUri);
+
+                                    imgProfile.setVisibility(View.VISIBLE);
+
+                                    txtProfileInitials.setVisibility(View.GONE);
+
+                                } catch (Exception ex) {
+
+                                    Toast.makeText(
+                                            this,
+                                            "Unable to load image.",
+                                            Toast.LENGTH_SHORT
+                                    ).show();
+                                }
+                            }
+                        }
+                    }
+                }
+        );
+    }
+
+    // =====================================
+    // PROFILE
+    // =====================================
+
+    private void loadUserProfile() {
+
+        String name = userPreferences.getString(
+                "name",
+                "NeuroCare User"
+        );
+
+        String email = userPreferences.getString(
+                "email",
+                ""
+        );
+
+        String age = userPreferences.getString(
+                "age",
+                ""
+        );
+
+        String gender = userPreferences.getString(
+                "gender",
+                "Select Gender"
+        );
+
+        selectedImageUri = userPreferences.getString(
+                "profileImage",
+                ""
+        );
+
+        txtProfileName.setText(name);
+
+        txtProfileEmail.setText(
+                email.isEmpty() ? "Welcome to NeuroCare" : email
+        );
+
+        txtProfileInitials.setText(getInitials(name));
+
+        edtProfileName.setText(
+                name.equals("NeuroCare User") ? "" : name
+        );
+
+        edtProfileEmail.setText(email);
+
+        edtProfileAge.setText(age);
+
+        int genderPosition = 0;
+
+        for (int i = 0; i < spinnerGender.getCount(); i++) {
+
+            if (spinnerGender.getItemAtPosition(i)
+                    .toString().equals(gender)) {
+
+                genderPosition = i;
+                break;
+            }
+        }
+
+        spinnerGender.setSelection(genderPosition);
+
+        if (!selectedImageUri.isEmpty()) {
+
+            try {
+
+                Uri uri = Uri.parse(selectedImageUri);
+
+                imgProfile.setImageURI(uri);
+
+                imgProfile.setVisibility(View.VISIBLE);
+
+                txtProfileInitials.setVisibility(View.GONE);
+
+            } catch (Exception e) {
+
+                imgProfile.setVisibility(View.GONE);
+
+                txtProfileInitials.setVisibility(View.VISIBLE);
+            }
+
+        } else {
+
+            imgProfile.setVisibility(View.GONE);
+
+            txtProfileInitials.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void setupProfileListeners() {
+
+        btnChoosePhoto.setOnClickListener(v -> {
+
+            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+
+            intent.setType("image/*");
+
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+
+            intent.addFlags(
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION
+                            | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION
+            );
+
+            imagePicker.launch(intent);
+        });
+
+        btnSaveProfile.setOnClickListener(v -> saveProfile());
+    }
+
+    private void saveProfile() {
+
+        String name = edtProfileName.getText().toString().trim();
+
+        String email = edtProfileEmail.getText().toString().trim();
+
+        String age = edtProfileAge.getText().toString().trim();
+
+        String gender = spinnerGender.getSelectedItem().toString();
+
+        if (name.isEmpty()) {
+
+            edtProfileName.setError("Enter your name");
+            return;
+        }
+
+        if (email.isEmpty()) {
+
+            edtProfileEmail.setError("Enter your email");
+            return;
+        }
+
+        if (!android.util.Patterns.EMAIL_ADDRESS
+                .matcher(email).matches()) {
+
+            edtProfileEmail.setError("Enter a valid email");
+            return;
+        }
+
+        if (!age.isEmpty()) {
+
+            try {
+
+                int ageValue = Integer.parseInt(age);
+
+                if (ageValue < 1 || ageValue > 120) {
+
+                    edtProfileAge.setError("Enter a valid age");
+                    return;
+                }
+
+            } catch (NumberFormatException e) {
+
+                edtProfileAge.setError("Enter a valid age");
+                return;
+            }
+        }
+
+        userPreferences.edit()
+                .putString("name", name)
+                .putString("email", email)
+                .putString("age", age)
+                .putString("gender", gender)
+                .putString("profileImage", selectedImageUri)
+                .apply();
+
+        txtProfileName.setText(name);
+
+        txtProfileEmail.setText(email);
+
+        txtProfileInitials.setText(getInitials(name));
+
+        Toast.makeText(
+                this,
+                "Profile saved successfully!",
+                Toast.LENGTH_SHORT
+        ).show();
+    }
+
+    private String getInitials(String name) {
+
+        if (name == null || name.trim().isEmpty()) {
+            return "NC";
+        }
+
+        String[] words = name.trim().split("\\s+");
+
+        if (words.length == 1) {
+
+            return words[0]
+                    .substring(0, 1)
+                    .toUpperCase();
+        }
+
+        return (
+                words[0].substring(0, 1)
+                        + words[words.length - 1].substring(0, 1)
+        ).toUpperCase();
+    }
+
+    // =====================================
     // ACCORDION
-    // ==========================================
+    // =====================================
 
     private void setupAccordion() {
 
-        headerPersonal.setOnClickListener(v -> {
+        headerPersonal.setOnClickListener(v ->
+                toggleSection(contentPersonal, arrowPersonal));
 
-            toggleSection(contentPersonal, arrowPersonal);
+        headerAppearance.setOnClickListener(v ->
+                toggleSection(contentAppearance, arrowAppearance));
 
-        });
-
-        headerAppearance.setOnClickListener(v -> {
-
-            toggleSection(contentAppearance, arrowAppearance);
-
-        });
-
-        headerAbout.setOnClickListener(v -> {
-
-            toggleSection(contentAbout, arrowAbout);
-
-        });
-
+        headerAbout.setOnClickListener(v ->
+                toggleSection(contentAbout, arrowAbout));
     }
-
 
     private void toggleSection(
             LinearLayout selectedContent,
@@ -173,80 +444,25 @@ public class SettingsActivity extends AppCompatActivity {
         boolean isOpening =
                 selectedContent.getVisibility() != View.VISIBLE;
 
-        // Close all sections
         contentPersonal.setVisibility(View.GONE);
         contentAppearance.setVisibility(View.GONE);
         contentAbout.setVisibility(View.GONE);
 
-        // Reset arrows
         arrowPersonal.setText("⌄");
         arrowAppearance.setText("⌄");
         arrowAbout.setText("⌄");
 
-        // Open selected section
         if (isOpening) {
 
             selectedContent.setVisibility(View.VISIBLE);
 
             selectedArrow.setText("⌃");
-
         }
-
     }
 
-
-    // ==========================================
-    // USER PROFILE
-    // ==========================================
-
-    private void loadUserProfile() {
-
-        String userName = userPreferences.getString(
-                "name",
-                "NeuroCare User"
-        );
-
-        String userEmail = userPreferences.getString(
-                "email",
-                "Welcome to NeuroCare"
-        );
-
-        txtProfileName.setText(userName);
-
-        txtProfileEmail.setText(userEmail);
-
-        txtProfileInitials.setText(getInitials(userName));
-
-    }
-
-
-    private String getInitials(String name) {
-
-        if (name == null || name.trim().isEmpty()) {
-
-            return "NC";
-
-        }
-
-        String[] words = name.trim().split("\\s+");
-
-        if (words.length == 1) {
-
-            return words[0].substring(0, 1).toUpperCase();
-
-        }
-
-        return (
-                words[0].substring(0, 1) +
-                        words[words.length - 1].substring(0, 1)
-        ).toUpperCase();
-
-    }
-
-
-    // ==========================================
-    // THEME LISTENERS
-    // ==========================================
+    // =====================================
+    // THEME
+    // =====================================
 
     private void setupThemeListeners() {
 
@@ -257,13 +473,7 @@ public class SettingsActivity extends AppCompatActivity {
         themeBlue.setOnClickListener(v -> selectTheme("blue"));
 
         themePurple.setOnClickListener(v -> selectTheme("purple"));
-
     }
-
-
-    // ==========================================
-    // SELECT THEME
-    // ==========================================
 
     private void selectTheme(String theme) {
 
@@ -282,13 +492,7 @@ public class SettingsActivity extends AppCompatActivity {
                 "Theme selected successfully!",
                 Toast.LENGTH_SHORT
         ).show();
-
     }
-
-
-    // ==========================================
-    // APPLY THEME
-    // ==========================================
 
     private void applyCurrentTheme() {
 
@@ -296,13 +500,7 @@ public class SettingsActivity extends AppCompatActivity {
                 this,
                 R.id.settingsMain
         );
-
     }
-
-
-    // ==========================================
-    // UPDATE THEME CHECK MARKS
-    // ==========================================
 
     private void updateSelectedTheme() {
 
@@ -314,41 +512,29 @@ public class SettingsActivity extends AppCompatActivity {
         switch (selectedTheme) {
 
             case "dark":
-
                 checkDark.setVisibility(View.VISIBLE);
-
                 break;
 
             case "blue":
-
                 checkBlue.setVisibility(View.VISIBLE);
-
                 break;
 
             case "purple":
-
                 checkPurple.setVisibility(View.VISIBLE);
-
                 break;
 
             default:
-
                 checkLight.setVisibility(View.VISIBLE);
-
                 break;
-
         }
-
     }
 
-
-    // ==========================================
+    // =====================================
     // BOTTOM NAVIGATION
-    // ==========================================
+    // =====================================
 
     private void setupBottomNavigation() {
 
-        // Home
         navHome.setOnClickListener(v -> {
 
             Intent intent = new Intent(
@@ -361,11 +547,8 @@ public class SettingsActivity extends AppCompatActivity {
             startActivity(intent);
 
             finish();
-
         });
 
-
-        // Games
         navGames.setOnClickListener(v -> {
 
             startActivity(new Intent(
@@ -374,11 +557,8 @@ public class SettingsActivity extends AppCompatActivity {
             ));
 
             finish();
-
         });
 
-
-        // Progress
         navProgress.setOnClickListener(v -> {
 
             startActivity(new Intent(
@@ -387,11 +567,8 @@ public class SettingsActivity extends AppCompatActivity {
             ));
 
             finish();
-
         });
 
-
-        // History
         navHistory.setOnClickListener(v -> {
 
             startActivity(new Intent(
@@ -400,35 +577,10 @@ public class SettingsActivity extends AppCompatActivity {
             ));
 
             finish();
-
         });
 
-
-        // Profile
         navProfile.setOnClickListener(v -> {
-
             // Already in Profile page
-
         });
-
     }
-
-
-    // ==========================================
-    // REFRESH PROFILE
-    // ==========================================
-
-    @Override
-    protected void onResume() {
-
-        super.onResume();
-
-        if (txtProfileName != null) {
-
-            loadUserProfile();
-
-        }
-
-    }
-
 }

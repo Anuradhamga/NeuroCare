@@ -11,39 +11,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NeuroCare">
+
         <activity
-            android:name=".OddOneOutActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SettingsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".HistoryActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ProgressActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ReactionActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AttentionActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MemoryMatchActivity"
-            android:exported="false" />
-        <activity
-            android:name=".GamesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".OddOneOutActivity" android:exported="false" />
+        <activity android:name=".SettingsActivity" android:exported="false" />
+        <activity android:name=".HistoryActivity" android:exported="false" />
+        <activity android:name=".ProgressActivity" android:exported="false" />
+        <activity android:name=".ReactionActivity" android:exported="false" />
+        <activity android:name=".AttentionActivity" android:exported="false" />
+        <activity android:name=".MemoryMatchActivity" android:exported="false" />
+        <activity android:name=".GamesActivity" android:exported="false" />
+        <activity android:name=".MainActivity" android:exported="false" />
+
     </application>
 
 </manifest>
